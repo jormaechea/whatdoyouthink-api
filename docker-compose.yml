@@ -1,0 +1,28 @@
+version: '3.3'
+
+networks:
+  simple-poll:
+    external: true
+
+services:
+  app:
+    container_name: simple-poll
+    image: node:12-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "4000:4000"
+    networks:
+      - simple-poll
+    command: "npm start"
+
+  mongo:
+    container_name: simple-poll-mongo
+    image: mongo:4.2
+    volumes:
+      - ~/.mongo/simple-poll:/data/db
+    ports:
+      - "4001:27017"
+    networks:
+      - simple-poll

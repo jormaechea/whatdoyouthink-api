@@ -1,0 +1,33 @@
+{
+  "name": "simple-poll-api",
+  "version": "1.0.0",
+  "description": "This is the API of the Simple Poll app",
+  "scripts": {
+    "start": "sls offline",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jormaechea/simple-poll-api.git"
+  },
+  "author": "Joaquín Ormaechea (https://github.com/jormaechea)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jormaechea/simple-poll-api/issues"
+  },
+  "homepage": "https://github.com/jormaechea/simple-poll-api#readme",
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2",
+    "serverless": "^1.72.0",
+    "serverless-domain-manager": "^4.1.1",
+    "serverless-offline": "^6.4.0"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.8.0",
+    "mongoose": "^5.9.20"
+  }
+}

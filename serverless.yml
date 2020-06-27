@@ -1,0 +1,90 @@
+service: SimplePoll
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  memorySize: 192
+  stage: ${opt:stage, 'local'}
+  region: ${opt:region, 'us-east-1'}
+  endpointType: REGIONAL
+  apiName: Simple Poll API
+
+package:
+  exclude:
+    - 'tests/**'
+    - '.eslintrc.js'
+    - 'package-lock.json'
+
+custom:
+  authorizer:
+    name: Auth0Authorizer
+    resultTtlInSeconds: 300
+    identitySource: method.request.header.Authorization
+    identityValidationExpression: Bearer .*
+    type: token
+  serverless-offline:
+    httpPort: 4000
+    host: 0.0.0.0
+    noPrependStageInUrl: true
+  customDomain:
+    domainName: simplepollapi.jormaechea.com.ar
+    stage: prod
+    basePath: ''
+    endpointType: regional
+    securityPolicy: tls_1_2
+
+functions:
+  Auth0Authorizer:
+    handler: src/authorizers/auth0-authorizer.handler
+  GetManyPolls:
+    handler: src/functions/admin/polls.getMany
+    events:
+      - http:
+          integration: lambda-proxy
+          method: get
+          path: /admin/polls
+          authorizer: ${self:custom.authorizer}
+  GetOnePoll:
+    handler: src/functions/admin/polls.getOne
+    events:
+      - http:
+          integration: lambda-proxy
+          method: get
+          path: /admin/polls/{id}
+          authorizer: ${self:custom.authorizer}
+  CreateOnePoll:
+    handler: src/functions/admin/polls.createOne
+    events:
+      - http:
+          integration: lambda-proxy
+          method: post
+          path: /admin/polls
+          authorizer: ${self:custom.authorizer}
+  UpdateOnePoll:
+    handler: src/functions/admin/polls.updateOne
+    events:
+      - http:
+          integration: lambda-proxy
+          method: put
+          path: /admin/polls/{id}
+          authorizer: ${self:custom.authorizer}
+  PublicGetPollData:
+    handler: src/functions/public/polls.getOne
+    events:
+      - http:
+          integration: lambda-proxy
+          method: post
+          path: /polls/{id}
+          authorizer: ${self:custom.authorizer}
+  PublicVotePoll:
+    handler: src/functions/public/polls.vote
+    events:
+      - http:
+          integration: lambda-proxy
+          method: post
+          path: /polls/{id}/vote
+          authorizer: ${self:custom.authorizer}
+
+plugins:
+  - serverless-offline
+  - serverless-domain-manager
