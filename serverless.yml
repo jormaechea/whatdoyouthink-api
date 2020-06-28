@@ -32,6 +32,15 @@ custom:
     basePath: ''
     endpointType: regional
     securityPolicy: tls_1_2
+  corsOrigin:
+    local: http://localhost:3000/
+    prod: https://simplepollapi.jormaechea.com.ar/
+  cors:
+    origin: ${self:corsOrigin.${self:provider.stage}}
+    headers:
+      - Authorization
+      - Content-Type
+    maxAge: 86400
 
 functions:
   Auth0Authorizer:
@@ -44,6 +53,7 @@ functions:
           method: get
           path: /admin/polls
           authorizer: ${self:custom.authorizer}
+          cors: ${self:custom.cors}
   GetOnePoll:
     handler: src/functions/admin/polls.getOne
     events:
@@ -52,6 +62,7 @@ functions:
           method: get
           path: /admin/polls/{id}
           authorizer: ${self:custom.authorizer}
+          cors: ${self:custom.cors}
   CreateOnePoll:
     handler: src/functions/admin/polls.createOne
     events:
@@ -60,6 +71,7 @@ functions:
           method: post
           path: /admin/polls
           authorizer: ${self:custom.authorizer}
+          cors: ${self:custom.cors}
   UpdateOnePoll:
     handler: src/functions/admin/polls.updateOne
     events:
@@ -68,14 +80,15 @@ functions:
           method: put
           path: /admin/polls/{id}
           authorizer: ${self:custom.authorizer}
+          cors: ${self:custom.cors}
   PublicGetPollData:
     handler: src/functions/public/polls.getOne
     events:
       - http:
           integration: lambda-proxy
-          method: post
+          method: get
           path: /polls/{id}
-          authorizer: ${self:custom.authorizer}
+          cors: ${self:custom.cors}
   PublicVotePoll:
     handler: src/functions/public/polls.vote
     events:
@@ -83,7 +96,7 @@ functions:
           integration: lambda-proxy
           method: post
           path: /polls/{id}/vote
-          authorizer: ${self:custom.authorizer}
+          cors: ${self:custom.cors}
 
 plugins:
   - serverless-offline
