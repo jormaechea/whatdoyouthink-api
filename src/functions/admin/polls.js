@@ -67,13 +67,14 @@ module.exports.createOne = apiHandler(async event => {
 module.exports.updateOne = apiHandler(async event => {
 	const userId = ensureUserId(event);
 	const pollId = ensurePollId(event);
-	const { title } = parsePollBody(event);
+	const { title, kind } = parsePollBody(event);
 
 	const PollsModel = await pollsConnector();
 	return PollsModel.findOneAndUpdate({
 		_id: pollId,
 		userId
 	}, {
-		title
+		title,
+		kind
 	});
 });
