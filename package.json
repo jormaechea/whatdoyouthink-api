@@ -11,7 +11,7 @@
     "url": "git+https://github.com/jormaechea/simple-poll-api.git"
   },
   "author": "Joaquín Ormaechea (https://github.com/jormaechea)",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jormaechea/simple-poll-api/issues"
   },
