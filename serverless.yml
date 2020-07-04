@@ -36,7 +36,7 @@ custom:
     local: http://localhost:3000/
     prod: https://simplepollapi.jormaechea.com.ar/
   cors:
-    origin: ${self:corsOrigin.${self:provider.stage}}
+    origin: ${self:custom.corsOrigin.${self:provider.stage}}
     headers:
       - Authorization
       - Content-Type
