@@ -10,9 +10,24 @@ const responseHeaders = process.env.CORS_ALLOWED_ORIGIN ? {
 
 module.exports = api => async event => {
 	try {
+
 		const result = await api(event);
-		return { body: JSON.stringify(result), headers: responseHeaders };
+		return {
+			headers: responseHeaders,
+			body: JSON.stringify(result)
+		};
+
 	} catch(e) {
-		throw new Error(`An error ocurred: ${e.message}`);
+
+		const statusCode = e.constructor.statusCode || (e.constructor.name === 'ValidationError' ? 400 : 500);
+
+		return {
+			statusCode,
+			headers: responseHeaders,
+			body: JSON.stringify({
+				message: e.message
+			})
+		};
+
 	}
 };

@@ -1,6 +1,7 @@
 'use strict';
 
 const apiHandler = require('../api-handler');
+const { Error400 } = require('../../errors');
 
 const pollsConnector = require('../../models/polls');
 
@@ -10,7 +11,7 @@ const ensureUserId = event => {
 	const userId = getUserId(event);
 
 	if(!userId)
-		throw new Error('Missing user id');
+		throw new Error400('Missing user id');
 
 	return userId;
 };
@@ -19,7 +20,7 @@ const ensurePollId = event => {
 	const id = event.pathParameters && event.pathParameters.id;
 
 	if(!id)
-		throw new Error('Missing ID in path');
+		throw new Error400('Missing ID in path');
 
 	return id;
 };
@@ -29,7 +30,7 @@ const parsePollBody = event => {
 	const { body } = event;
 
 	if(!body)
-		throw new Error('Missing request body');
+		throw new Error400('Missing request body');
 
 	return JSON.parse(body);
 };
