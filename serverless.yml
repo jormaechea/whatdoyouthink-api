@@ -33,8 +33,8 @@ custom:
     endpointType: regional
     securityPolicy: tls_1_2
   corsOrigin:
-    local: http://localhost:3000/
-    prod: https://simplepollapi.jormaechea.com.ar/
+    local: http://localhost:3000
+    prod: https://simplepoll.jormaechea.com.ar
   cors:
     origin: ${self:custom.corsOrigin.${self:provider.stage}}
     headers:
