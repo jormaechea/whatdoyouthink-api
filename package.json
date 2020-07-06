@@ -1,21 +1,21 @@
 {
-  "name": "simple-poll-api",
+  "name": "whatdoyouthink-api",
   "version": "1.0.0",
-  "description": "This is the API of the Simple Poll app",
+  "description": "This is the API of the WhatDoYouThink app",
   "scripts": {
     "start": "sls offline",
     "lint": "eslint src"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jormaechea/simple-poll-api.git"
+    "url": "git+https://github.com/jormaechea/whatdoyouthink-api.git"
   },
   "author": "Joaquín Ormaechea (https://github.com/jormaechea)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jormaechea/simple-poll-api/issues"
+    "url": "https://github.com/jormaechea/whatdoyouthink-api/issues"
   },
-  "homepage": "https://github.com/jormaechea/simple-poll-api#readme",
+  "homepage": "https://whatdoyouthink.jormaechea.com.ar",
   "devDependencies": {
     "eslint": "^7.2.0",
     "eslint-config-airbnb-base": "^14.2.0",

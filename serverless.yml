@@ -1,4 +1,4 @@
-service: SimplePoll
+service: WhatDoYouThinkApi
 
 provider:
   name: aws
@@ -7,7 +7,7 @@ provider:
   stage: ${opt:stage, 'local'}
   region: ${opt:region, 'us-east-1'}
   endpointType: REGIONAL
-  apiName: Simple Poll API
+  apiName: WhatDoYouThink API
 
 package:
   exclude:
@@ -27,14 +27,14 @@ custom:
     host: 0.0.0.0
     noPrependStageInUrl: true
   customDomain:
-    domainName: simplepollapi.jormaechea.com.ar
+    domainName: whatdoyouthinkapi.jormaechea.com.ar
     stage: prod
     basePath: ''
     endpointType: regional
     securityPolicy: tls_1_2
   corsOrigin:
     local: http://localhost:3000
-    prod: https://simplepoll.jormaechea.com.ar
+    prod: https://whatdoyouthink.jormaechea.com.ar
   cors:
     origin: ${self:custom.corsOrigin.${self:provider.stage}}
     headers:
