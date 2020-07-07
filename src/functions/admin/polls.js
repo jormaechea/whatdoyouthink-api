@@ -68,7 +68,7 @@ module.exports.createOne = apiHandler(async event => {
 		try {
 
 			const id = await PollsModel.create({
-				_id: nanoid(8),
+				_id: nanoid(6),
 				userId,
 				title,
 				kind
