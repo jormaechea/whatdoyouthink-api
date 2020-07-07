@@ -1,7 +1,7 @@
 'use strict';
 
 const apiHandler = require('../api-handler');
-const { Error400 } = require('../../errors');
+const { Error400, Error404 } = require('../../errors');
 
 const pollsConnector = require('../../models/polls');
 
@@ -28,7 +28,12 @@ module.exports.getOne = apiHandler(async event => {
 	const pollId = ensurePollId(event);
 
 	const PollsModel = await pollsConnector();
-	return PollsModel.findById(pollId);
+	const poll = await PollsModel.findById(pollId);
+
+	if(!poll)
+		throw new Error404(`Poll ${pollId} does not exist`);
+
+	return poll;
 });
 
 module.exports.vote = apiHandler(async event => {
