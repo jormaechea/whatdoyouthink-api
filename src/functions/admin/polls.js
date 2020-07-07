@@ -1,5 +1,7 @@
 'use strict';
 
+const { nanoid } = require('nanoid');
+
 const apiHandler = require('../api-handler');
 const { Error400 } = require('../../errors');
 
@@ -53,16 +55,33 @@ module.exports.getOne = apiHandler(async event => {
 	});
 });
 
+const maxInsertAttempts = 5;
 module.exports.createOne = apiHandler(async event => {
 	const userId = ensureUserId(event);
 	const { title, kind } = parsePollBody(event);
 
 	const PollsModel = await pollsConnector();
-	return PollsModel.create({
-		userId,
-		title,
-		kind
-	});
+
+	let currentAttempt = 1;
+
+	while(currentAttempt <= maxInsertAttempts) {
+		try {
+
+			const id = await PollsModel.create({
+				_id: nanoid(8),
+				userId,
+				title,
+				kind
+			});
+
+			return id;
+		} catch(e) {
+			if(e.code !== 11000 || currentAttempt >= maxInsertAttempts)
+				throw e;
+
+			currentAttempt++;
+		}
+	}
 });
 
 module.exports.updateOne = apiHandler(async event => {

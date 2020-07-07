@@ -32,6 +32,7 @@ const Vote = new Schema({
 });
 
 const Poll = new Schema({
+	_id: { type: String },
 	userId: { type: String, required: true, index: true },
 	title: { type: String, required: true, maxlength: 100 },
 	kind: {

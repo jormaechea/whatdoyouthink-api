@@ -58,7 +58,8 @@ module.exports = {
 		'consistent-return': 0,
 		'arrow-parens': ['error', 'as-needed'],
 		'arrow-body-style': 0,
-		'no-param-reassign': 0
+		'no-param-reassign': 0,
+		'no-await-in-loop': 0
 
 		// 'object-curly-newline': ['error', {
 		// 	ObjectExpression: { minProperties: 5, multiline: true, consistent: true },
@@ -85,6 +86,5 @@ module.exports = {
 		// }],
 		// 'no-prototype-builtins': 0,
 		// 'function-paren-newline': 0,
-		// 'no-await-in-loop': 0,
 	}
 };
